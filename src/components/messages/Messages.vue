@@ -1,14 +1,14 @@
 <template>
 <div>
-    <div class="messages__container">
+     <div class="messages__container">
         <div class="messages__content">
             <div class="fixed-top-header">
                 <h2 class="inverted center aligned header">{{ channelName }}</h2>
               </div>
-            <div class="ui segment">
-                <div class="ui comments">
+            <div class="ui segment" style="border: 1px solid #cccccc;">
+                <div class="ui comments" id="myDIV">
                     <!-- Composant single message-->
-                    <transition-group tag="div" name="list">
+                    <transition-group  tag="div" name="list">
                         <single-message :message="message" v-for="message in messages" :key="message.id"></single-message>
                     </transition-group>
                 </div>
@@ -17,9 +17,10 @@
         </div>
 
         <!-- Formulaire d'envoi-->
-        <message-form></message-form>
+        
 
     </div>
+    <message-form></message-form>
 </div>
 </template>
 
@@ -28,9 +29,9 @@
     import MessageForm from './MessageForm'
     import SingleMessage from './SingleMessage'
     import { mapGetters } from 'vuex'
-
+    
     export default {
-        name: 'messages',
+    name: 'messages',
         components: { MessageForm, SingleMessage },
         data () {
             return {
@@ -51,11 +52,8 @@
              },
         watch : {
             currentChannel () {
-
                 this.detachListeners()
-
                 this.addListeners()
-
                 this.channel = this.currentChannel
             }
         },
@@ -66,7 +64,6 @@
                     let message = snap.val()
                     message['id'] = snap.key
                     this.messages.push(message)
-
                     this.$nextTick( () => {
                       $('html, body').scrollTop($(document).height())
                     })
@@ -102,16 +99,16 @@
     }
 </script>
 
+
 <style scoped>
     .fixed-top-header{
-      color: #fff;
+      color: black;
     }
     .messages__container{
-        position: relative;
-        background-color: #2f362e;
+        osition: relative;        background-color: #fff;
         padding: 10px 30px 210px 30px;
         margin-left: 250px;
-        min-height: 100%;
+        
     }
     .messages__container .comments{
         font-size: 1.2em;
@@ -123,4 +120,4 @@
         opacity: 0;
         transform: translateX(30px);
     }
-</style>
+  </style>

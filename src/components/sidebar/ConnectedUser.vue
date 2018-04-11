@@ -20,6 +20,7 @@
                 </div>
             </div>
         </div>
+        <div class="ui divider"></div>
   </div>
 </div>
 </template>
@@ -53,14 +54,14 @@
 
     .connectedUser__container{
         position: absolute;
-        background-color: #2f362e;
+        background-color: #000000;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
         height: 90px;
         padding: 8px;
-        box-shadow: -4px 1px 8px 3px #2f362e;
+        box-shadow: -4px 1px 8px 3px #000000;
     }
 
 </style>

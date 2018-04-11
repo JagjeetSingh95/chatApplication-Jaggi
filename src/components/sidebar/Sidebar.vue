@@ -34,8 +34,8 @@
     top: 0;
     left: 0;
     bottom: 0;
-    background-color: #2f362e;
-    padding-top: 110px;
+    background-color: #000000;
+    padding-top: 80px;
 }
 
 

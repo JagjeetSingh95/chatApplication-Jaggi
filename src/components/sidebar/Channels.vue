@@ -133,15 +133,14 @@
         padding: 0;
     }
     .channels__item{
-        height: 30px;
-        margin: 8px;
+        height: 25px;
+        margin: 2px;
         list-style: none;
-        //background-color: #3d70c7;
         color: #a3a3a3;
         cursor: pointer;
-        line-height: 30px;
+        line-height: 10px;
         border-radius: 2px;
-        padding-left: 12px;
+        padding-left: 30px;
         font-weight: bold;
         font-size: 1.1em;
     }

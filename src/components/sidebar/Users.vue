@@ -4,9 +4,6 @@
         <h4 class="ui inverted center aligned header">Users</h4>
         <div class="ui feed" v-for="user in users" :key="user.uid" :class="{'is_active' : isActive(user)}" @click.prevent="changeChannel(user)">
             <div class="event">
-                <div class="label">
-                    <!--<img :src="user.avatar" alt="avatar">-->
-                </div>
                 <div class="content">
                     <span class="ui empty circular label connection__label" :class="{'green': isOnline(user), '': !isOnline(user)}"></span>&nbsp;  {{ user.name }}
                 </div>
@@ -128,6 +125,10 @@
         float:left!important;
         margin-right: 1px!important;
         margin-top: 5px;
+    }
+    .content {
+        margin-left: 20px;
+        cursor: pointer;
     }
 
 </style>
