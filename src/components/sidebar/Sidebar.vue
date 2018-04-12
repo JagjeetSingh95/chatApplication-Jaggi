@@ -12,31 +12,27 @@
 </template>
 
 <script>
+import ConnectedUser from "./ConnectedUser";
+import Channels from "./Channels";
+import Users from "./Users";
 
-    import ConnectedUser from './ConnectedUser'
-    import Channels from './Channels'
-    import Users from './Users'
-
-    export default {
-        name: 'sidebar',
-        components: { ConnectedUser, Channels, Users }
-    }
+export default {
+  name: "sidebar",
+  components: { ConnectedUser, Channels, Users }
+};
 </script>
 
 <style scoped>
-
-.sidebar{
-    position: fixed;
-    display: flex;
-    flex-flow: column nowrap;
-    width: 250px;
-    padding: 0px;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    background-color: #000000;
-    padding-top: 80px;
+.sidebar {
+  position: fixed;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 250px;
+  padding: 0px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #000000;
+  padding-top: 80px;
 }
-
-
 </style>

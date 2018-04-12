@@ -1,36 +1,41 @@
-import Vue from 'vue'
-import App from './App'
-import VueRouter from 'vue-router'
-import firebase from 'firebase'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Tchat from './pages/Tchat'
-import store from './store'
+import Vue from "vue";
+import App from "./App";
+import VueRouter from "vue-router";
+import firebase from "firebase";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Tchat from "./pages/Tchat";
+import Forgotpassword from "./pages/Forgotpassword";
+import store from "./store";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/login',
+    path: "/login",
     component: Login
   },
   {
-    path: '/register',
+    path: "/register",
     component: Register
   },
   {
-    path: '/',
+    path: "/",
     component: Tchat,
     beforeEnter: (to, from, next) => {
-      if(!firebase.auth().currentUser){
-        next('/login')
-      }else{
-        next()
+      if (!firebase.auth().currentUser) {
+        next("/login");
+      } else {
+        next();
       }
     }
+  },
+  {
+    path: "/forgotpassword",
+    component: Forgotpassword
   }
-]
-const router = new VueRouter({routes})
+];
+const router = new VueRouter({ routes });
 
 let config = {
   apiKey: "AIzaSyC0TT0-v1ARoY8HIcKQhKEUyoZgQbPl094",
@@ -43,23 +48,22 @@ let config = {
 
 firebase.initializeApp(config);
 
-window.firebase = firebase
+window.firebase = firebase;
 
 const unsuscribe = firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("setUser", user);
 
-    store.dispatch('setUser', user)
+  new Vue({
+    el: "#app",
+    components: { App },
+    template: "<App/>",
+    router,
+    store
+  });
 
-    new Vue({
-      el: '#app',
-      components: { App },
-      template: '<App/>',
-      router,
-      store
-    })
+  unsuscribe();
+});
 
-    unsuscribe()
- })
-
-Vue.config.productionTip = false
+//Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

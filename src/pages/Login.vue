@@ -1,4 +1,4 @@
-<template>
+<template>     
     <div class="ui middle aligned center aligned grid login__container">
         <div class="column">
             <h2 class="ui orange header">
@@ -36,60 +36,64 @@
               Register
                 <router-link to="/register">Register</router-link>
             </div>
+            Forgot Password
+                <router-link to="/forgotpassword">Forgot Password</router-link>
        </div>
     </div>
 
  </template>
 <script>
 export default {
-  name: 'login',
-          data() {
-              return {
-                  email: '',
-                  password: '',
-                  errors: [],
-                  isLoading: false
-              }
-          },
-          computed: {
-              hasErrors () {
-                  return this.errors.length > 0
-              }
-          },
-          methods: {
-              login() {
-                  console.log("login")
-                  this.errors = []
+  name: "login",
+  data() {
+    return {
+      email: "",
+      password: "",
+      errors: [],
+      isLoading: false
+    };
+  },
+  computed: {
+    hasErrors() {
+      return this.errors.length > 0;
+    }
+  },
+  methods: {
+    login() {
+      console.log("login");
+      this.errors = [];
 
-                  if(this.isFormValid()){
-                      this.isLoading = true
+      if (this.isFormValid()) {
+        this.isLoading = true;
 
-                      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(user => {
-
-                          this.$store.dispatch('setUser', user)
-                          this.$router.push('/')
-
-                      }).catch(error => {
-                          this.errors.push(error.message)
-                          this.isLoading = false
-                      })
-                  }
-              },
-              isFormValid(){
-                  if(this.email.length > 0 && this.password.length > 0){
-                      return true
-                  }
-                  return false
-              }
-          }
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(user => {
+            this.$store.dispatch("setUser", user);
+            this.$router.push("/");
+          })
+          .catch(error => {
+            this.errors.push(error.message);
+            this.isLoading = false;
+          });
       }
+    },
+    isFormValid() {
+      if (this.email.length > 0 && this.password.length > 0) {
+        return true;
+      }
+      return false;
+    }
+  }
+};
 </script>
 
 <style scoped>
-     .login__container{
-        margin-top: 40px;
-    }
-    .column{
-        max-width: 450px;
-    }
+.login__container {
+  margin-top: 40px;
+}
+.column {
+  max-width: 450px;
+}
 </style>
