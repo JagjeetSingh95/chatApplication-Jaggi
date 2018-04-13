@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Tchat from "./pages/Tchat";
 import Forgotpassword from "./pages/Forgotpassword";
+import Resetpassword from "./pages/Resetpassword";
 import store from "./store";
 
 Vue.use(VueRouter);
@@ -33,6 +34,10 @@ const routes = [
   {
     path: "/forgotpassword",
     component: Forgotpassword
+  },
+  {
+    path: "/resetpassword",
+    component: Resetpassword
   }
 ];
 const router = new VueRouter({ routes });

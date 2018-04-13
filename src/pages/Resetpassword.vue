@@ -11,12 +11,19 @@
 
                     <div class="field">
                         <div class="ui left icon input">
-                            <i class="user icon"></i>
-                            <input type="email" name="email" placeholder="Email" v-model.trim="email">
+                            <i class="lock icon"></i>
+                            <input type="password" name="password" placeholder="Password" v-model.trim="password">
                         </div>
                     </div>
 
-                    <div class="ui fluid large orange button" @click.prevent="forgotpassword">Forgot Password</div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="conformPassword" placeholder="Conform Password" v-model.trim="conformPassword">
+                        </div>
+                    </div>
+
+                    <div class="ui fluid large orange button" @click.prevent="resetPassword">Forgot Password</div>
                 </div>
 
                  <div class="ui error message" v-if="hasErrors">
@@ -38,7 +45,8 @@ export default {
   name: "forgotpassword",
   data() {
     return {
-      email: "",
+      password: "",
+      conformPassword: "",
       errors: []
     };
   },
@@ -48,17 +56,21 @@ export default {
     }
   },
   methods: {
-    forgotpassword() {
+    resetPassword() {
       if (this.formValid()) {
-        this.$router.push("/resetpassword");
+        alert("reset password");
       } else {
-        this.errors.push("please enter email first");
+        this.errors.push("please enter fields first");
       }
     },
     formValid() {
-      if (this.email.length > 0) {
+      if (this.password === this.conformPassword) {
+        if (this.password.length > 0 && this.conformPassword.length > 0) {
+          return true;
+        }
         return true;
       }
+
       return false;
     }
   }
