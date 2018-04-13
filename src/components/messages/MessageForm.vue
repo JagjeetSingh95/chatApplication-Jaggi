@@ -11,7 +11,7 @@
 
                 <div class="field">
                     <button class="ui green button" @click.prevent="sendMessage">Send</button>
-                    <button class="ui labeled icon button" @click.prevent="openFileModal"><i class="cloud upload icon"></i>Add media and files</button>
+                    <button class="ui labeled icon button" @click.prevent="openFileModal"  :class="{ 'disabled' : uploadState == 'uploading' }"><i class="cloud upload icon"></i>Add media and files</button>
                 </div>
 
             </div>
@@ -140,11 +140,7 @@ export default {
         .child(pathToUpload)
         .push()
         .set(this.createMessage(fileUrl))
-        .then(() => {
-          then.$nextTick(() => {
-            $(".scrollbar").scrollTop($(document).height());
-          });
-        })
+        .then(() => {})
         .catch(error => {
           this.errors.push(error.message);
         });

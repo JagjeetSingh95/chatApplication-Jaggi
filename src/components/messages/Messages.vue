@@ -16,9 +16,7 @@
                     </div>
               </div>
         </div>
-
-        <!-- Formulaire d'envoi-->
-        
+      
 
     </div>
     <message-form></message-form>
@@ -67,10 +65,18 @@ export default {
         message["id"] = snap.key;
         this.messages.push(message);
         this.$nextTick(() => {
-          $(".scrollbar").scrollTop($(document).height());
+          var contrainer = document.querySelector(".scrollbar");
+          var scrollHeight = contrainer.scrollHeight;
+          contrainer.scrollTop = scrollHeight;
+          //$(".scrollbar").scrollTop($(document).height());
         });
       });
       this.addToListeners(this.currentChannel.id, ref, "child_added");
+    },
+    scrollToEnd() {
+      var contrainer = document.querySelector(".scrollbar");
+      var scrollHeight = contrainer.scrollHeight;
+      contrainer.scrollTop = scrollHeight;
     },
     addToListeners(id, ref, event) {
       let index = this.listeners.findIndex(el => {
