@@ -18,7 +18,7 @@
         </div>
 
 
-        <!-- Modal Pour ajouter un Channel -->
+        <!-- Modal for add channel -->
 
         <div class="ui basic modal" id="channelModal">
             <div class="ui icon header">

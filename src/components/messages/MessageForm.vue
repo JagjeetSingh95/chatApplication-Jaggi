@@ -73,7 +73,7 @@ export default {
     sendMessage() {
       if (this.currentChannel !== null) {
         if (this.message.length > 0) {
-          //Envoi du message
+          //message
           this.$parent
             .getMessageRef()
             .child(this.currentChannel.id)

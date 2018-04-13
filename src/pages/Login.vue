@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     login() {
-      console.log("login");
       this.errors = [];
 
       if (this.isFormValid()) {

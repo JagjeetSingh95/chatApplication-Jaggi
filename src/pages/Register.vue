@@ -57,99 +57,113 @@
 </template>
 
 <script>
-import md5 from 'md5'
+import md5 from "md5";
 
 export default {
-  name: 'register',
-  data () {
+  name: "register",
+  data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
       errors: [],
-      usersRef: firebase.database().ref('users'),
+      usersRef: firebase.database().ref("users"),
       isLoading: false
-    }
+    };
   },
   computed: {
-    hasErrors () {
-      return this.errors.length > 0
+    hasErrors() {
+      return this.errors.length > 0;
     }
   },
   methods: {
-    register () {
-      console.log("register")
+    register() {
       this.errors = [];
 
-      if(this.isFormVaild()) {
-        this.isLoading = true
-          firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(user => {
-              console.log("Successfull "+user.email);
+      if (this.isFormVaild()) {
+        this.isLoading = true;
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(user => {
+            console.log("Successfull " + user.email);
 
-              user.updateProfile({
+            user
+              .updateProfile({
                 displayName: this.name,
-                photoURL: "http://www.gravatar.com/avatar/"+md5(user.email)+"?d=identicon"
-              }).then( () =>{
-                this.saveUserToUsersRef(user).then( () => {
-                 this.$store.dispatch("setUser", user)
-                 this.$router.push('/')
-                })
-              }, error => {
-                console.log(error)
-                this.errors.push(error.message)
-                this.isLoading = false
+                photoURL:
+                  "http://www.gravatar.com/avatar/" +
+                  md5(user.email) +
+                  "?d=identicon"
               })
-
-            }).catch( error => {
-                 console.log(error)
-                 this.errors.push(error.message)
-                 this.isLoading = false
-            })
+              .then(
+                () => {
+                  this.saveUserToUsersRef(user).then(() => {
+                    this.$store.dispatch("setUser", user);
+                    this.$router.push("/");
+                  });
+                },
+                error => {
+                  console.log(error);
+                  this.errors.push(error.message);
+                  this.isLoading = false;
+                }
+              );
+          })
+          .catch(error => {
+            console.log(error);
+            this.errors.push(error.message);
+            this.isLoading = false;
+          });
       }
-
     },
-    saveUserToUsersRef(user){
-     return this.usersRef.child(user.uid).set({
+    saveUserToUsersRef(user) {
+      return this.usersRef.child(user.uid).set({
         name: user.displayName,
         avatar: user.photoURL
-      })
+      });
     },
-    isEmpty () {
-      if(this.name.length == 0 || this.email.length == 0 || this.password.length == 0 || this.password_confirmation.length == 0) {
+    isEmpty() {
+      if (
+        this.name.length == 0 ||
+        this.email.length == 0 ||
+        this.password.length == 0 ||
+        this.password_confirmation.length == 0
+      ) {
         return true;
       }
       return false;
     },
-    passwordValid () {
-      if(this.password.length < 6 || this.password_confirmation < 6){
+    passwordValid() {
+      if (this.password.length < 6 || this.password_confirmation < 6) {
         return false;
       }
-      if(this.password !== this.password_confirmation){
+      if (this.password !== this.password_confirmation) {
         return false;
       }
       return true;
     },
-    isFormVaild(){
-      if(this.isEmpty()){
-        this.errors.push('Form is not valid')
+    isFormVaild() {
+      if (this.isEmpty()) {
+        this.errors.push("Form is not valid");
         return false;
       }
-      if(!this.passwordValid()){
-        this.errors.push('password not valid')
+      if (!this.passwordValid()) {
+        this.errors.push("password not valid");
         return false;
       }
       return true;
     }
   }
-}
+};
 </script>
 
 <style scoped>
 .login_container {
   margin-top: 48px;
 }
-.column{
+.column {
   max-width: 450px;
 }
 </style>

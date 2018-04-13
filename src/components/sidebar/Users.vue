@@ -56,7 +56,6 @@ export default {
         }
       });
 
-      //Check du status utilisateur
       this.presenceRef.on("child_added", snap => {
         if (this.currentUser.uid !== snap.key) {
           this.addStatusToUser(snap.key);
@@ -126,7 +125,7 @@ export default {
         : this.currentUser.uid + "/" + userId;
     },
     getNotification(user) {
-      console.log(user);
+      console.log("user" + user.uid);
       let channelId = this.getChannelId(user.uid);
       let notif = 0;
 

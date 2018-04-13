@@ -10,8 +10,11 @@
             </div>
             <div class="text" v-if="!isFile(message)">{{ message.content }}</div>
 
-            <img class="ui image comment__image" :src="message.image" alt="image" v-else>
+            <img class="ui image comment__image" style="width:50%;" @click.prevent="openImage(message.image)" :src="message.image" alt="image" v-else>
+            <img :src="message.image" style="width:50%;" v-if="isFile(message)" class="ui modal" id="modal" alt="image">
         </div>
+
+        
     </div>
 </template>
 
@@ -22,6 +25,11 @@ import moment from "moment";
 export default {
   name: "single-message",
   props: ["message"],
+  data() {
+    return {
+      //imageShow: message.image
+    };
+  },
   computed: {
     ...mapGetters(["currentUser"])
   },
@@ -31,6 +39,14 @@ export default {
     },
     isFile(message) {
       return message.content == null && message.image != null;
+    },
+    openImage(img) {
+      // this.imageShow = img;
+      // $("#modal").modal("show");
+      // console.log(img);
+      console.log(img);
+      $("#modal").modal("show");
+      let imageShow = img;
     }
   },
   filters: {
