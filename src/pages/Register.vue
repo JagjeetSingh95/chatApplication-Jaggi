@@ -87,8 +87,6 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(user => {
-            console.log("Successfull " + user.email);
-
             user
               .updateProfile({
                 displayName: this.name,

@@ -34,7 +34,7 @@
 
             <div class="ui message">
               Login
-                <router-link to="/login">Login</router-link>
+                <router-link to="/">Home</router-link>
             </div>
        </div>
     </div>

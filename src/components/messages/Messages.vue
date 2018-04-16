@@ -2,7 +2,7 @@
 <div>
      <div class="messages__container">
         <div class="messages__content">
-            <div class="fixed-top-header">
+              <div class="fixed-top-header" @click="addChannelUsers" >
                 <h2 class="inverted center aligned header">{{ channelName }}</h2>
               </div>
               <div class="scrollbar" v-if="messages.length > 0" id="style-1">
@@ -20,6 +20,27 @@
 
     </div>
     <message-form></message-form>
+    <div class="ui modal" id="channelusersadd">
+  <i class="close icon"></i>
+  <div class="header">
+    Users List
+  </div>
+  <div class="image content">
+
+    <div class="description">
+        <div class="ui checkbox" v-for="user in users">
+          <input type="checkbox" name="example" />
+          <label>{{ user.name }}</label>
+        </div>
+
+    </div>
+
+  </div>
+  <div class="actions">
+    <div class="ui button deny">Cancel</div>
+    <div class="ui button deny" @click="addUsersInChannel">Add User</div>
+  </div>
+</div>
 </div>
 </template>
 
@@ -37,7 +58,9 @@ export default {
       privateMessagesRef: firebase.database().ref("privateMessages"),
       messages: [],
       channel: null,
-      listeners: []
+      listeners: [],
+      users: [],
+      usersRef: firebase.database().ref("users")
     };
   },
   computed: {
@@ -51,6 +74,11 @@ export default {
     }
   },
   watch: {
+    isPrivate() {
+      if (!this.isPrivate) {
+        this.resetNotifications();
+      }
+    },
     currentChannel() {
       this.detachListeners();
       this.addListeners();
@@ -58,6 +86,16 @@ export default {
     }
   },
   methods: {
+    addChannelUsers() {
+      this.usersRef.on("child_added", snap => {
+        if (this.currentUser.uid !== snap.key) {
+          let user = snap.val();
+          this.users.push(user);
+        }
+      });
+      $("#channelusersadd").modal("show");
+    },
+    addUsersInChannel() {},
     addListeners() {
       let ref = this.getMessageRef();
       ref.child(this.currentChannel.id).on("child_added", snap => {
@@ -111,6 +149,7 @@ export default {
 <style scoped>
 .fixed-top-header {
   color: black;
+  cursor: pointer;
 }
 .messages__container {
   osition: relative;
