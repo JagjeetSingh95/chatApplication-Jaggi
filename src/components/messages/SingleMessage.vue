@@ -11,7 +11,7 @@
             <div class="text" v-if="!isFile(message)">{{ message.content }}</div>
 
             <img class="ui image comment__image" style="width:50%;" @click.prevent="openImage(message.image)" :src="message.image" alt="image" v-else>
-            <img :src="message.image" style="width:50%;" v-if="isFile(message)" class="ui modal" id="modal" alt="image">
+            <img :src="imageShowOn" style="width:50%;" v-if="isFile(message)" class="ui modal" id="modal" alt="image">
         </div>
 
         
@@ -27,7 +27,7 @@ export default {
   props: ["message"],
   data() {
     return {
-      //imageShow: message.image
+      imageShowOn: ""
     };
   },
   computed: {
@@ -41,12 +41,9 @@ export default {
       return message.content == null && message.image != null;
     },
     openImage(img) {
-      // this.imageShow = img;
-      // $("#modal").modal("show");
-      // console.log(img);
-      console.log(img);
+      console.log(message.image);
+      this.imageShowOn = img;
       $("#modal").modal("show");
-      let imageShow = img;
     }
   },
   filters: {

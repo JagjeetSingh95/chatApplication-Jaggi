@@ -19,7 +19,7 @@
                     <div class="ui fluid large orange button" @click.prevent="forgotpassword">Forgot Password</div>
                 </div>
 
-                 <div class="ui error message" v-if="hasErrors">
+                 <div class="ui positive message" v-if="hasErrors">
                     <p v-for="error in errors">{{ error }}</p>
                 </div>
 
@@ -50,9 +50,17 @@ export default {
   methods: {
     forgotpassword() {
       if (this.formValid()) {
-        this.$router.push("/resetpassword");
+        firebase
+          .auth()
+          .sendPasswordResetEmail(this.email)
+          .then(() => {
+            this.errors.push("Please check your email! We will send to mail.");
+          })
+          .catch(() => {
+            alert("please write correct email....");
+          });
       } else {
-        this.errors.push("please enter email first");
+        alert("please enter email first");
       }
     },
     formValid() {
