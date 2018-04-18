@@ -2,7 +2,7 @@
 <div>
      <div class="messages__container">
         <div class="messages__content">
-              <div class="fixed-top-header" @click="addChannelUsers" >
+              <div class="fixed-top-header" @click="addChannelUsers(users)" >
                 <h2 class="inverted center aligned header">{{ channelName }}</h2>
               </div>
               <div class="scrollbar" v-if="messages.length > 0" id="style-1">
@@ -28,11 +28,33 @@
   <div class="image content">
 
     <div class="description">
-        <div class="ui checkbox" v-for="user in users">
-          <input type="checkbox" name="example" />
-          <label>{{ user.name }}</label>
-        </div>
+<div class="ui form">
 
+  <div class="inline field" >
+    <label>Select Users</label>
+
+    <select v-model="addChannelUser" v-bind="users" multiple="" class="label ui selection fluid dropdown">
+      <option value="">All</option>
+      <option v-for="user in users" :value="user.uid">{{user.name}}</option>
+
+    </select>
+
+   
+  </div>
+  
+  
+  
+   
+   
+</div>
+  <br><br>
+  
+
+  <div class="ui button">
+    Clear Filters
+  </div>
+
+        
     </div>
 
   </div>
@@ -48,19 +70,24 @@
 import MessageForm from "./MessageForm";
 import SingleMessage from "./SingleMessage";
 import { mapGetters } from "vuex";
+import _ from "lodash";
+import Multiselect from "vue-multiselect";
 
 export default {
   name: "messages",
-  components: { MessageForm, SingleMessage },
+  components: { MessageForm, SingleMessage, Multiselect },
   data() {
     return {
+      selected: null,
       messagesRef: firebase.database().ref("messages"),
       privateMessagesRef: firebase.database().ref("privateMessages"),
       messages: [],
       channel: null,
       listeners: [],
       users: [],
-      usersRef: firebase.database().ref("users")
+      usersRef: firebase.database().ref("users"),
+      channelRef: firebase.database().ref("channels"),
+      addChannelUser: []
     };
   },
   computed: {
@@ -86,16 +113,56 @@ export default {
     }
   },
   methods: {
-    addChannelUsers() {
-      this.usersRef.on("child_added", snap => {
-        if (this.currentUser.uid !== snap.key) {
-          let user = snap.val();
-          this.users.push(user);
-        }
-      });
-      $("#channelusersadd").modal("show");
+    addChannelUsers(users) {
+      if (!this.isPrivate) {
+        this.usersRef.on("child_added", snap => {
+          if (this.currentUser.uid !== snap.key) {
+            let user = snap.val();
+            user["uid"] = snap.key;
+
+            $(".label.ui.dropdown").dropdown();
+
+            $(".no.label.ui.dropdown").dropdown({
+              useLabels: false
+            });
+
+            $(".ui.button").on("click", function() {
+              $(".ui.dropdown").dropdown("restore defaults");
+            });
+
+            let users = [];
+
+            for (let prop in snap.val()) {
+              users = [...users, snap.val()[prop]];
+            }
+            console.log(users);
+
+            if (
+              this.users[0] != user[0] &&
+              this.users[1] != user[1] &&
+              this.users[2] != user[2]
+            ) {
+            } else {
+              this.users.push(user);
+            }
+          }
+        });
+        $("#channelusersadd").modal("show");
+      } else {
+        console.log("isPrivate");
+      }
     },
-    addUsersInChannel() {},
+
+    addUsersInChannel() {
+      let key = this.currentChannel.id;
+
+      const pushArr = this.addChannelUser.map(user => {
+        return this.channelRef.child(key + "/users/").push(user);
+      });
+
+      Promise.all(pushArr).then(values => console.log("Append"));
+    },
+
     addListeners() {
       let ref = this.getMessageRef();
       ref.child(this.currentChannel.id).on("child_added", snap => {
@@ -145,14 +212,14 @@ export default {
 };
 </script>
 
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
 .fixed-top-header {
   color: black;
   cursor: pointer;
 }
 .messages__container {
-  osition: relative;
+  position: relative;
   background-color: #fff;
   padding: 10px 30px 210px 30px;
   margin-left: 250px;
@@ -195,5 +262,33 @@ export default {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #555;
+}
+
+.ui.dropdown {
+  max-width: 800px;
+}
+
+@media only screen and (max-width: 767px) {
+  .ui.selection.dropdown .menu {
+    /*      max-height: 8.01428571rem; /* + 1.335714285 to 9.349999995rem */
+    /*      max-height: 9.349999995rem; /* Adds a half */
+    max-height: 16.02857142rem; /* Double size */
+  }
+}
+@media only screen and (min-width: 768px) {
+  .ui.selection.dropdown .menu {
+    /*         max-height: 10.68571429rem; /* + 1.3357142863 to 12.0214285763rem */
+    max-height: 12.0214285763rem;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .ui.selection.dropdown .menu {
+    max-height: 16.02857143rem; /* + 1.3357142858 to 17.3642857158rem */
+  }
+}
+@media only screen and (min-width: 1920px) {
+  .ui.selection.dropdown .menu {
+    max-height: 21.37142857rem; /* + 1.3357142856 to 22.7071428556rem */
+  }
 }
 </style>

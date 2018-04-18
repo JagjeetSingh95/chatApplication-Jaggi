@@ -66,6 +66,7 @@ export default {
       new_channel: "",
       channelsRef: firebase.database().ref("channels"),
       messagesRef: firebase.database().ref("messages"),
+      channelUserRef: firebase.database().ref("channelUser"),
       errors: [],
       firstLoad: true,
       notifCount: [],
@@ -74,7 +75,7 @@ export default {
   },
   mixins: [mixin],
   computed: {
-    ...mapGetters(["currentChannel", "isPrivate"]),
+    ...mapGetters(["currentChannel", "isPrivate", "currentUser"]),
     hasErrors() {
       return this.errors.length > 0;
     }
@@ -92,13 +93,23 @@ export default {
   methods: {
     addListeners() {
       this.channelsRef.on("child_added", snap => {
-        this.channels.push(snap.val());
+        let users = [];
 
+        for (let prop in snap.val().users) {
+          users = [...users, snap.val().users[prop]];
+        }
+
+        if (this.currentUser.uid === snap.val().uid) {
+          this.channels.push(snap.val());
+        }
+        if (users.includes(this.currentUser.uid)) {
+          this.channels.push(snap.val());
+        }
         if (this.firstLoad && this.channels.length > 0) {
           this.$store.dispatch("setCurrentChannel", this.channels[0]);
           this.channel = this.channels[0];
         }
-        this.firsLoad = false;
+        this.firstLoad = false;
         this.addCountListener(snap.key);
       });
     },
@@ -151,7 +162,11 @@ export default {
       this.errors = [];
       let key = this.channelsRef.push().key;
 
-      let newChannel = { id: key, name: this.new_channel };
+      let newChannel = {
+        id: key,
+        name: this.new_channel,
+        uid: this.currentUser.uid
+      };
       this.channelsRef
         .child(key)
         .update(newChannel)

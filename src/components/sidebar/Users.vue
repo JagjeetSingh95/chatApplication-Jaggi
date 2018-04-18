@@ -125,7 +125,6 @@ export default {
         : this.currentUser.uid + "/" + userId;
     },
     getNotification(user) {
-      console.log("user" + user.uid);
       let channelId = this.getChannelId(user.uid);
       let notif = 0;
 

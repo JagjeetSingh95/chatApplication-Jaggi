@@ -10,14 +10,20 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "lodash": "^4.17.5",
     "md5": "^2.2.1",
     "mime-types": "^2.1.18",
     "uuid": "^3.2.1",
     "vue": "^2.5.11",
+    "vue-multiselect": "^2.1.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
