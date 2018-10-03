@@ -1,69 +1,53 @@
 <template>
-<div>
-     <div class="messages__container">
+  <div class="msg-sec">
+    <div class="inner-con">
+      <div class="messages__container">
         <div class="messages__content">
-              <div class="fixed-top-header" @click="addChannelUsers(users)" >
-                <h2 class="inverted center aligned header">{{ channelName }}</h2>
+          <div class="fixed-top-header" @click="addChannelUsers(users)" >
+            <h2 class="inverted center aligned header title">{{ channelName }}</h2>
+          </div>
+          <div class="scrollbar" v-if="messages.length > 0" id="style-1">
+            <div class="ui segment"> 
+              <div class="ui comments">
+                <!-- Composant single message-->
+                <transition-group  tag="div" name="list">
+                  <single-message :message="message" v-for="message in messages" :key="message.id"></single-message>
+                </transition-group>
               </div>
-              <div class="scrollbar" v-if="messages.length > 0" id="style-1">
-                    <div class="ui segment"> 
-                        <div class="ui comments">
-                            <!-- Composant single message-->
-                            <transition-group  tag="div" name="list">
-                                <single-message :message="message" v-for="message in messages" :key="message.id"></single-message>
-                            </transition-group>
-                        </div>
-                    </div>
-              </div>
+            </div>
+          </div>
         </div>
-      
-
+      </div>
+      <message-form></message-form>
+      <div class="ui modal" id="channelusersadd">
+        <i class="close icon"></i>
+        <div class="header">
+          Users List
+        </div>
+        <div class="image content">
+          <div class="description">
+            <div class="ui form">
+              <div class="inline field">
+                <label>Select Users</label>
+                <select v-model="addChannelUser" v-bind="users" multiple="" class="label ui selection fluid dropdown">
+                  <option value="">All</option>
+                  <option v-for="user in users" :value="user.uid">{{user.name}}</option>
+                </select>
+              </div>
+            </div>
+            <br><br>
+            <div class="ui button">
+              Clear Filters
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui red button deny">Cancel</div>
+          <div class="ui green button deny" @click="addUsersInChannel">Add User</div>
+        </div>
+      </div>
     </div>
-    <message-form></message-form>
-    <div class="ui modal" id="channelusersadd">
-  <i class="close icon"></i>
-  <div class="header">
-    Users List
   </div>
-  <div class="image content">
-
-    <div class="description">
-<div class="ui form">
-
-  <div class="inline field" >
-    <label>Select Users</label>
-
-    <select v-model="addChannelUser" v-bind="users" multiple="" class="label ui selection fluid dropdown">
-      <option value="">All</option>
-      <option v-for="user in users" :value="user.uid">{{user.name}}</option>
-
-    </select>
-
-   
-  </div>
-  
-  
-  
-   
-   
-</div>
-  <br><br>
-  
-
-  <div class="ui button">
-    Clear Filters
-  </div>
-
-        
-    </div>
-
-  </div>
-  <div class="actions">
-    <div class="ui button deny">Cancel</div>
-    <div class="ui button deny" @click="addUsersInChannel">Add User</div>
-  </div>
-</div>
-</div>
 </template>
 
 <script>
@@ -214,81 +198,5 @@ export default {
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
-.fixed-top-header {
-  color: black;
-  cursor: pointer;
-}
-.messages__container {
-  position: relative;
-  background-color: #fff;
-  padding: 10px 30px 210px 30px;
-  margin-left: 250px;
-}
-.messages__container .comments {
-  font-size: 1.2em;
-}
-.list-enter-active {
-  transition: all 0.3s;
-}
-.list-enter,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
 
-.scrollbar {
-  margin-left: 30px;
-  float: left;
-  max-height: 450px;
-  width: 90%;
-  margin-top: 2%;
-  background: #f5f5f5;
-  overflow-y: scroll;
-  margin-bottom: 25px;
-  border-style: groove;
-}
-#style-1::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  background-color: #f5f5f5;
-}
-
-#style-1::-webkit-scrollbar {
-  width: 12px;
-  background-color: #f5f5f5;
-}
-
-#style-1::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #555;
-}
-
-.ui.dropdown {
-  max-width: 800px;
-}
-
-@media only screen and (max-width: 767px) {
-  .ui.selection.dropdown .menu {
-    /*      max-height: 8.01428571rem; /* + 1.335714285 to 9.349999995rem */
-    /*      max-height: 9.349999995rem; /* Adds a half */
-    max-height: 16.02857142rem; /* Double size */
-  }
-}
-@media only screen and (min-width: 768px) {
-  .ui.selection.dropdown .menu {
-    /*         max-height: 10.68571429rem; /* + 1.3357142863 to 12.0214285763rem */
-    max-height: 12.0214285763rem;
-  }
-}
-@media only screen and (min-width: 992px) {
-  .ui.selection.dropdown .menu {
-    max-height: 16.02857143rem; /* + 1.3357142858 to 17.3642857158rem */
-  }
-}
-@media only screen and (min-width: 1920px) {
-  .ui.selection.dropdown .menu {
-    max-height: 21.37142857rem; /* + 1.3357142856 to 22.7071428556rem */
-  }
-}
 </style>

@@ -1,47 +1,46 @@
 <template>
-<div class="profilecss">
-   <div class="ui modal" id="Profile">
-        <i class="close icon"></i>
-        <div class="header blue">
-             Profile
-        </div>
-        <div class="image content">
-            <div class="description">
-                <form class="ui form">
-                 <div class="ui card">
-                    <div class="image">
-                        <img :src="currentUser.photoURL" alt="avatar">
-                    </div>
-                <div class="content">
-                    <a class="header"> 
-                      <div class="field">
-                        <input type="text" name="displayName" v-model="currentUser.displayName" placeholder="Name">
-                      </div>
-                    </a>
-                    <div class="meta">
-                    <span class="date">2018</span>
-                    </div>
-                    <div class="description">
-                        <span class="date">2018</span>
-
-                    </div>
+  <div class="profilecss">
+    <div class="ui modal" id="Profile">
+      <i class="close icon"></i>
+      <div class="header blue">
+        Profile
+      </div>
+      <div class="image content">
+        <div class="description">
+          <form class="ui form">
+            <div class="ui card">
+              <div class="image">
+                <img :src="currentUser.photoURL" alt="avatar">
+              </div>
+              <div class="content">
+                <a class="header"> 
+                  <div class="field">
+                    <input type="text" name="displayName" v-model="currentUser.displayName" placeholder="Name">
+                  </div>
+                </a>
+                <div class="meta">
+                  <span class="date">2018</span>
                 </div>
-                <div class="extra content">
-                    <a>
-                    <i class="user icon"></i>
-                        {{ currentUser.email }}
-                    </a>
+                <div class="description">
+                  <span class="date">2018</span>
                 </div>
+              </div>
+              <div class="extra content email-add">
+                <a>
+                  <i class="user icon"></i>
+                  {{ currentUser.email }}
+                </a>
+              </div>
             </div>
-                </form>
-            </div>
+          </form>
         </div>
-        <div class="actions">
-             <div class="ui black button deny">Cancel</div>
-              <div class="ui red button deny" @click="updateProfile">Update</div>
-         </div>
- </div>
-</div> 
+      </div>
+      <div class="actions">
+        <div class="ui red button deny">Cancel</div>
+        <div class="ui cus-color button deny" @click="updateProfile">Update</div>
+      </div>
+   </div>
+  </div> 
 </template>
 
 <script>
@@ -84,16 +83,4 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-#Profile {
-  width: 25%;
-}
-.profilecss {
-  width: 24%;
-}
-.image {
-  max-height: 10%;
-}
-</style>
 

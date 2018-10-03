@@ -1,45 +1,38 @@
 <template>
-    <div class="ui middle aligned center aligned grid login__container">
-        <div class="column">
-            <h2 class="ui orange header">
-                <div class="content">
-                    Forgot Password
-                </div>
-            </h2>
-            <form class="ui large form" :class="{ 'error' : hasErrors }">
-                <div class="ui stacked segment">
-
-                    <div class="field">
-                        <div class="ui left icon input">
-                            <i class="lock icon"></i>
-                            <input type="password" name="password" placeholder="Password" v-model.trim="password">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <div class="ui left icon input">
-                            <i class="lock icon"></i>
-                            <input type="password" name="conformPassword" placeholder="Conform Password" v-model.trim="conformPassword">
-                        </div>
-                    </div>
-
-                    <div class="ui fluid large orange button" @click.prevent="resetPassword">Forgot Password</div>
-                </div>
-
-                 <div class="ui error message" v-if="hasErrors">
-                    <p v-for="error in errors">{{ error }}</p>
-                </div>
-
-            </form>
-
-            <div class="ui message">
-              Login
-                <router-link to="/">Home</router-link>
+  <div class="ui middle aligned center aligned grid login__container cus-form-design">
+    <div class="column">
+      <h2 class="ui header">
+        Forgot Password
+      </h2>
+      <form class="ui large form" :class="{ 'error' : hasErrors }">
+        <div class="ui stacked segment">
+          <div class="field">
+            <label>Password</label>
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password" placeholder="Password" v-model.trim="password">
             </div>
-       </div>
+          </div>
+          <div class="field">
+            <label>Conform Password</label>
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="conformPassword" placeholder="Conform Password" v-model.trim="conformPassword">
+            </div>
+          </div>
+          <div class="ui fluid large cus-color button" @click.prevent="resetPassword">Forgot Password</div>
+        </div>
+        <div class="ui error message" v-if="hasErrors">
+          <p v-for="error in errors">{{ error }}</p>
+        </div>
+      </form>
+      <div class="ui message">
+        <router-link to="/">Home</router-link>
+      </div>
     </div>
+  </div>
+</template>
 
- </template>
 <script>
 export default {
   name: "forgotpassword",
@@ -77,11 +70,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.login__container {
-  margin-top: 40px;
-}
-.column {
-  max-width: 450px;
-}
-</style>
+

@@ -1,59 +1,52 @@
 <template>
- <div class="ui middle aligned center aligned grid">
-  <div class="column">
-    <h2 class="ui orange header">
-      <div class="content">
+  <div class="ui middle aligned center aligned grid cus-form-design">
+    <div class="column">
+      <h2 class="ui header">
         Register to Chat Application
-      </div>
-    </h2>
-    <form class="ui large form" :class="{ 'error': hasErrors }">
-      <div class="ui stacked segment">
-
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            <input type="text" name="name" placeholder="Enter name" v-model.trim="name" required>
+      </h2>
+      <form class="ui large form" :class="{ 'error': hasErrors }">
+        <div class="ui stacked segment">
+          <div class="field">
+            <label>Name</label>
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="name" placeholder="Enter name" v-model.trim="name" required>
+            </div>
           </div>
-        </div>
-
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            <input type="email" name="email" placeholder="Enter email" v-model.trim="email" required>
+          <div class="field">
+            <label>Email</label>
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="email" name="email" placeholder="Enter email" v-model.trim="email" required>
+            </div>
           </div>
-        </div>
-
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Password" v-model.trim="password" required>
+          <div class="field">
+            <label>Password</label>
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password" placeholder="Password" v-model.trim="password" required>
+            </div>
           </div>
-        </div>
-
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            <input type="password" name="password_confirmation" placeholder="Password" v-model.trim="password_confirmation" required>
+          <div class="field">
+            <label>Conform Password</label>
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="password_confirmation" placeholder="Password" v-model.trim="password_confirmation" required>
+            </div>
           </div>
+          <div class="ui fluid large cus-color button" @click.prevent="register" :class="{ 'loading': isLoading }">Register</div>
         </div>
-
-
-        <div class="ui fluid large orange button" @click.prevent="register" :class="{ 'loading': isLoading }">Register</div>
-      </div>
-
-      <div class="ui error message" v-if="hasErrors">
+        <div class="ui error message" v-if="hasErrors">
           <p v-for="error in errors">
             {{ error }}
           </p>
+        </div>
+      </form>
+      <div class="ui message">
+        New to us? <router-link to="/login">Login</router-link>
       </div>
-
-    </form>
-
-    <div class="ui message">
-      New to us? <router-link to="/login">Login</router-link>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -157,11 +150,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.login_container {
-  margin-top: 48px;
-}
-.column {
-  max-width: 450px;
-}
-</style>
+

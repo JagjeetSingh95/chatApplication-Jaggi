@@ -1,35 +1,27 @@
 <template>
-<div>
+  <div class="cus-msg-box">
     <div class="messages__form">
-        <div class="ui inverted form">
-
-            <div class="two fields">
-
-                <div class="field">
-                    <textarea name="message" id="message" v-model.trim="message" rows="3" placeholder="Message"></textarea>
-                </div>
-
-                <div class="field">
-                    <button class="ui green button" @click.prevent="sendMessage">Send</button>
-                    <button class="ui labeled icon button" @click.prevent="openFileModal"  :class="{ 'disabled' : uploadState == 'uploading' }"><i class="cloud upload icon"></i>Add media and files</button>
-                </div>
-
-            </div>
-
+      <div class="ui inverted form">
+        <div class="two fields">
+          <div class="field">
+            <textarea name="message" id="message" v-model.trim="message" rows="3" placeholder="Message"></textarea>
+          </div>
+          <div class="field">
+            <button class="ui cus-color button" @click.prevent="sendMessage">Send</button>
+            <button class="ui labeled icon button" @click.prevent="openFileModal"  :class="{ 'disabled' : uploadState == 'uploading' }"><i class="cloud upload icon"></i>Add media and files</button>
+          </div>
         </div>
-        
-         <!-- Progress Bar Upload File -->
-        <div class="ui small indicating progress" v-if="progressStatus" data-value="10" data-total="100" id="uploadedFile">
-
-            <div class="bar">
-                <div class="progress"></div>
-            </div>
-            <div class="label">{{ uploadLabel }}</div>
-
+      </div>      
+      <!-- Progress Bar Upload File -->
+      <div class="ui small indicating progress" v-if="progressStatus" data-value="10" data-total="100" id="uploadedFile">
+        <div class="bar">
+          <div class="progress"></div>
         </div>
-        <file-modal></file-modal>
+        <div class="label">{{ uploadLabel }}</div>
+      </div>
+      <file-modal></file-modal>
     </div>
-</div>
+  </div>
 </template>
 
 
@@ -165,20 +157,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.messages__form {
-  position: fixed;
-  bottom: 0;
-  background-color: #fff;
-  padding: 10px;
-  padding-top: 20px;
-  left: 300px;
-  right: 0;
-}
-.messages__form.big {
-  height: 350px;
-}
-.shortcut {
-  color: white;
-}
-</style>
+

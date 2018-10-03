@@ -1,14 +1,9 @@
 <template>
-
-    <div class="sidebar">
-        <h1 class="ui inverted center aligned header"></h1>
-
-          <connected-user></connected-user>
-          <channels></channels>
-          <div class="ui divider"></div>
-         <users></users>
-    </div>
-
+  <div class="sidebar">
+    <connected-user></connected-user>
+    <channels></channels>
+    <users></users>
+  </div>
 </template>
 
 <script>
@@ -23,17 +18,3 @@
     }
 </script>
 
-<style scoped>
-.sidebar {
-  position: fixed;
-  display: flex;
-  flex-flow: column nowrap;
-  width: 250px;
-  padding: 0px;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background-color: #000000;
-  padding-top: 80px;
-}
-</style>

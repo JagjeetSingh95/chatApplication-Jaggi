@@ -1,32 +1,29 @@
 <template>
-
-    <div class="ui modal" id="fileModal">
-        <i class="close icon"></i>
-        <div class="header">
-            Upload file here
-        </div>
-        <div class="content">
-            <div class="description">
-                <div class="ui header">Choose an file <em>( jpg, png, 1 mb max )</em></div>
-                <form class="ui form">
-                    <div class="field">
-                        <input type="file" name="file" id="file" @change="addFile">
-                    </div>
-                </form>
-
-            </div>
-        </div>
-        <div class="actions">
-            <div class="ui black deny button">
-                Cancel
-            </div>
-            <div class="ui right green labeled icon button" @click.prevent="sendFile">
-                Upload
-                <i class="checkmark icon"></i>
-            </div>
-        </div>
+  <div class="ui modal" id="fileModal">
+    <i class="close icon"></i>
+    <div class="header">
+      Upload file here
     </div>
-
+    <div class="content">
+      <div class="description">
+        <div class="ui header">Choose an file <em>( jpg, png, 1 mb max )</em></div>
+        <form class="ui form">
+          <div class="field">
+            <input type="file" name="file" id="file" @change="addFile">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui black deny button">
+        Cancel
+      </div>
+      <div class="ui right green labeled icon button" @click.prevent="sendFile">
+        Upload
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

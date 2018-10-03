@@ -1,13 +1,13 @@
 <template>
-<div>
-  <div>
-    Chat
-  </div>
-  <div class="tchat__container">
+  <div class="main">
+    <div class="page-title"> 
+      <h3>Chat</h3>
+    </div>
+    <div class="tchat__container">
       <sidebar></sidebar>
       <messages></messages>
+    </div>
   </div>
-</div>
  </template>
 
  <script>
@@ -21,10 +21,3 @@
      }
 
  </script>
-
- <style scoped>
-
- .tchat__container{
-     height: 100%;
- }
- </style>

@@ -1,17 +1,20 @@
 <template>
-<div>
-    <div class="users__container">
-        <h4 class="ui inverted center aligned header">Users</h4>
-        <div class="ui feed" v-for="user in users" :key="user.uid" :class="{'is_active' : isActive(user)}" @click.prevent="changeChannel(user)">
-            <div class="event">
-                <div class="content">
-                    <span class="ui empty circular label connection__label" :class="{'green': isOnline(user), '': !isOnline(user)}"></span>&nbsp;  {{ user.name }}
-                    <div class="ui white label channel__count" v-if="getNotification(user) >= 1">{{ getNotification(user) }}</div>
+    <div class="cus-users">
+        <div class="users__container">
+            <h4 class="ui inverted center aligned header">Users</h4>
+            <div class="scroll-sec">
+                <div class="ui feed" v-for="user in users" :key="user.uid" :class="{'is_active' : isActive(user)}" @click.prevent="changeChannel(user)">
+                    <div class="event">
+                        <div class="content">
+                            <span class="ui empty circular label connection__label" :class="{'green': isOnline(user), '': !isOnline(user)}"></span>
+                            <h5>{{ user.name }}</h5>
+                            <div class="ui white label channel__count" v-if="getNotification(user) >= 1">{{ getNotification(user) }}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -163,30 +166,4 @@
     }
 </script>
 
-<style scoped>
-.users__container {
-  overflow-y: auto;
-  color: #a3a3a3;
-}
-.users__container .feed {
-  cursor: pointer;
-}
-.users__container .feed:hover {
-  color: #fff;
-}
-.users__container .feed.is_active {
-  color: #fff;
-}
-.connection__label {
-  float: left !important;
-  margin-right: 1px !important;
-  margin-top: 5px;
-}
-.content {
-  margin-left: 20px;
-  cursor: pointer;
-}
-.channel__count {
-  float: right;
-}
-</style>
+
